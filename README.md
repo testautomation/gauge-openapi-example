@@ -42,7 +42,7 @@ ___
 
 3. Now, let's say that implementing this feature requires a new [REST API microservice](https://microservices.io/patterns/microservices.html).
 
-   Create an OpenAPI specification to describe our new API, e.g. the [`openapi.yaml`](./openapi.yaml) in this repo.
+   Create an OpenAPI specification to describe our new API, e.g. the [`openapi.json`](./openapi.json) in this repo.
 
    (The OpenAPI specification file can be in YAML format or JSON format, either is fine.)
    
@@ -53,7 +53,7 @@ ___
       1. [Install OpenAPI Generator](https://openapi-generator.tech/docs/installation)
       2. Generate the client SDK code, e.g:
 
-         `openapi-generator-cli generate -i openapi.yaml -g python -o ./python-client-generated`
+         `openapi-generator-cli generate -i openapi.json -g python -o ./python-client-generated`
 
          (we use Python in our example, but you can generate code in many other languages too)
       3. Install our new Python client SDK library:
@@ -97,7 +97,7 @@ ___
    [Prism](https://stoplight.io/prism) is a mock server that effortlessly serves example
    responses based on an OpenAPI spec.
    1. [Install Prism](https://meta.stoplight.io/docs/prism/docs/getting-started/01-installation.md)
-   2. Start Prism: `prism mock openapi.yaml`
+   2. Start Prism: `prism mock openapi.json`
    3. Setup a Gauge [environment variable](https://docs.gauge.org/configuration.html#using-environments-in-a-gauge-project) to point our Gauge spec implementation at the Prism
    mock server that we just started:
 
@@ -144,7 +144,7 @@ ___
 - [Install OpenAPI Generator](https://openapi-generator.tech/docs/installation)
 - Generate the Python client SDK code:
 
-  `openapi-generator-cli generate -i openapi.yaml -g python -o ./python-client-generated`
+  `openapi-generator-cli generate -i openapi.json -g python -o ./python-client-generated`
 
 - Install the generated Python client SDK code:
 
@@ -153,7 +153,7 @@ ___
 - [Install Prism](https://meta.stoplight.io/docs/prism/docs/getting-started/01-installation.md)
 - Start Prism:
 
-  `prism mock openapi.yaml`
+  `prism mock openapi.json`
   
 ### Run the spec against the mock server
 - `gauge run --env mock specs`
