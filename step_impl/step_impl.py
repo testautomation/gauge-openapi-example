@@ -1,24 +1,38 @@
-from getgauge.python import step
-import openapi_client
-from openapi_client.api import pet_api
-import os
+from getgauge.python import step, before_scenario, Messages
+
+vowels = ["a", "e", "i", "o", "u"]
 
 
-@step("There is a pet named <pet_name> available in the pet store")
-def there_is_an_available_pet_named(pet_name):
-    with openapi_client.ApiClient(configuration()) as api_client:
-        api_instance = pet_api.PetApi(api_client)
-        available_pets = api_instance.find_pets_by_status(["available"])
-        print(available_pets)
-        assert any(pet.name == pet_name for pet in available_pets)
+def number_of_vowels(word):
+    return len([elem for elem in list(word) if elem in vowels])
 
 
-def configuration():
-    openapi_host = os.environ.get("OPENAPI_HOST")
-    if openapi_host is None:
-        configuration = openapi_client.Configuration()
-    else:
-        configuration = openapi_client.Configuration(host=openapi_host)
+# --------------------------
+# Gauge step implementations
+# --------------------------
 
-    configuration.access_token = "YOUR_ACCESS_TOKEN"
-    return configuration
+@step("The word <word> has <number> vowels.")
+def assert_no_of_vowels_in(word, number):
+    assert str(number) == str(number_of_vowels(word))
+
+
+@step("Vowels in English language are <vowels>.")
+def assert_default_vowels(given_vowels):
+    Messages.write_message("Given vowels are {0}".format(given_vowels))
+    assert given_vowels == "".join(vowels)
+
+
+@step("Almost all words have vowels <table>")
+def assert_words_vowel_count(table):
+    actual = [str(number_of_vowels(word)) for word in table.get_column_values_with_name("Word")]
+    expected = [str(count) for count in table.get_column_values_with_name("Vowel Count")]
+    assert expected == actual
+
+
+# ---------------
+# Execution Hooks
+# ---------------
+
+@before_scenario()
+def before_scenario_hook():
+    assert "".join(vowels) == "aeiou"
