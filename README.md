@@ -6,8 +6,11 @@
 [![License](https://img.shields.io/github/license/agilepathway/gauge-openapi-example?color=blue)](LICENSE)
 [<img src="https://github.com/agilepathway/gauge-openapi-example/wiki/images/openapi.png" width="87">](./openapi.yaml)[![OpenAPI Validator](https://validator.swagger.io/validator?url=https://raw.githubusercontent.com/agilepathway/gauge-openapi-example/master/openapi.yaml)](./openapi.yaml)
 
-Example of how [Gauge](https://gauge.org/) and [OpenAPI](https://www.openapis.org/about) play nicely
+Example in Python of how [Gauge](https://gauge.org/) and [OpenAPI](https://www.openapis.org/about) play nicely
 together to produce [living documentation](https://www.infoq.com/articles/book-review-living-documentation/) for APIs.
+
+NB There is also a separate [Java example repository](https://github.com/agilepathway/java-gauge-openapi-example),
+demonstrating the same workflow but using Java as the test implementation language instead of Python.
 
 ___
 * [Example workflow](#example-workflow)
