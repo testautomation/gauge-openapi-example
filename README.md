@@ -109,7 +109,7 @@ ___
       `OPENAPI_HOST = http://127.0.0.1:4010`
 
 6. Now we can run our Gauge spec against our mock environment, and it will pass :-)
-   - `prism mock openapi.yaml`
+   - `prism mock openapi.yaml --errors`
    - `gauge run --env mock specs`
 
 7. We can now go ahead and implement the API, based on our OpenAPI spec of course.
@@ -121,7 +121,7 @@ ___
    Even better, we can [use Prism as a validation proxy against the real server](https://meta.stoplight.io/docs/prism/docs/guides/03-validation-proxy.md), which verifies
    that the implementation is fully compliant with the OpenAPI spec:
 
-   - `prism proxy openapi.yaml https://petstore.swagger.io/v2`
+   - `prism proxy openapi.yaml https://petstore.swagger.io/v2 --errors`
    - `gauge run --env validation-proxy specs`
 
 ## Benefits of this approach
@@ -160,14 +160,14 @@ ___
 - [Install Prism](https://meta.stoplight.io/docs/prism/docs/getting-started/01-installation.md)
   
 ### Run the spec against the mock server
-- `prism mock openapi.yaml`
+- `prism mock openapi.yaml --errors`
 - `gauge run --env mock specs`
 
 ### Run the spec against the real server
 - `gauge run specs`
 
 ### Run the spec using Prism as a validation proxy against the real server
-- `prism proxy openapi.yaml https://petstore.swagger.io/v2`
+- `prism proxy openapi.yaml https://petstore.swagger.io/v2 --errors`
 - `gauge run --env validation-proxy specs`
 
 
