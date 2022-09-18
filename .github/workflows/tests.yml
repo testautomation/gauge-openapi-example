@@ -4,24 +4,23 @@ on:  # yamllint disable-line rule:truthy
   # Run the tests on every push, and also at 3am every night
   push:
   schedule:
-    - cron: '0 3 * * *'  # * is a special character in YAML so you have to quote this string
+    - cron: "0 3 * * *"  # * is a special character in YAML so you have to quote this string
 
 jobs:
   tests:
     name: ${{ matrix.gauge-env }} server
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         gauge-env: [default, mock, validation-proxy]
     steps:
-
       - name: Checkout code
         uses: actions/checkout@v2.3.4
 
       - name: Install Node
         uses: actions/setup-node@v2
         with:
-          node-version: '12'
+          node-version: "16"
 
       - name: Install Gauge
         uses: getgauge/setup-gauge@master
@@ -58,6 +57,9 @@ jobs:
         run: prism proxy openapi.yaml https://petstore.swagger.io/v2 --errors &
 
       - name: Run Gauge specs against ${{ matrix.gauge-env }} OpenAPI server
+        env:
+          # Python env var is temporary workaround for https://github.com/getgauge/gauge-python/issues/256
+          PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION: python
         run: gauge run --env ${{ matrix.gauge-env }} specs
 
       - name: Upload Gauge test report
