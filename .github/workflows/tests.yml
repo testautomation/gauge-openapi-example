@@ -20,7 +20,7 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v2
         with:
-          node-version: "12"
+          node-version: "16"
 
       - name: Install Gauge
         uses: getgauge/setup-gauge@master
